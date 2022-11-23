@@ -13,11 +13,19 @@ class NotesView {
   addNewNote(newNote) {
     this.model.addNote(newNote);
     this.displayNotes();
+    document.querySelector('#add-note-input').value = '';
   }
 
 
   displayNotes() {
-    const notes = this.model.getNotes() // gets all notes (for the loop below)
+    // removes previous notes
+    const oldNotes = document.querySelectorAll('.note');
+    oldNotes.forEach(element => {
+      element.remove();
+    });
+    
+    // gets all notes (for the loop below)
+    const notes = this.model.getNotes()
     
     // For each note:
     //  - create a new element
@@ -29,6 +37,9 @@ class NotesView {
       noteElement.className = 'note';
       this.mainContainerEl.append(noteElement);
     });
+
+    
+
   }
 }
 
