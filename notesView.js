@@ -1,21 +1,26 @@
 class NotesView {
   
   constructor(model, client) {
-    this.model = model; // injecting the model class
-    this.mainContainerEl = document.querySelector('#main-container'); // defining main container element
-    this.client = client; // injecting client class
+    // injecting the model class
+    this.model = model; 
+    
+    // defining main container element
+    this.mainContainerEl = document.querySelector('#main-container'); 
+    
+    // injecting client class
+    this.client = client; 
 
     document.querySelector('#add-note-button').addEventListener('click', () => {
       const newNote = document.querySelector('#add-note-input').value;
       this.addNewNote(newNote);
+      document.querySelector('#add-note-input').value = '';
     });
   }
 
   addNewNote(newNote) {
     this.model.addNote(newNote);
     this.displayNotes();
-    document.querySelector('#add-note-input').value = '';
-  }
+  };
 
   displayNotes() {
     // removes previous notes
@@ -37,12 +42,18 @@ class NotesView {
       noteElement.className = 'note';
       this.mainContainerEl.append(noteElement);
     });
+  };
 
-    displayNotesFromApi() {
-      
-    };
-
-  }
-}
+  // calls loadNotes(+callback) on Client class
+  // take response data and sets the list of notes on Model
+  // then calls displayNotes()
+  displayNotesFromApi() {
+    this.client.loadNotes(
+      (notes) => {
+        this.model.setNotes(notes);
+        this.displayNotes();
+    });
+  };
+};
 
 module.exports = NotesView;

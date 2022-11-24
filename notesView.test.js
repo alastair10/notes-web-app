@@ -5,7 +5,12 @@
 const fs = require('fs');
 const NotesModel = require('./notesModel');
 const NotesView = require('./notesView');
-const NotesClient = require('./notesClient');
+
+// This makes `fetch` available to our test
+// (it is not by default, as normally `fetch` is only
+// available within the browser)
+require('jest-fetch-mock').enableMocks();
+
 
 describe('NotesView', () => {
   
@@ -21,27 +26,31 @@ describe('NotesView', () => {
     const view = new NotesView(model);
 
     //Act
-      // Fill the input
+    
+    // Fill the input
     const input = document.querySelector('#add-note-input');
     input.value = 'My new note'
-      // Click the button
+    
+    // Click the button
     const button = document.querySelector('#add-note-button');
-    button.click(); // simulate a click on the button
+    button.click(); // simulate a button click
 
     //Assert
-    expect(document.querySelectorAll('div.note').length).toEqual(1); // checks if there is an element w/HTML ID 'div.note' on the doc.
-    expect(document.querySelectorAll('div.note')[0].textContent).toEqual('My new note'); // checks if the first content of the html is the note user has entered
+    // checks if there is an element w/HTML ID 'div.note' on the doc.
+    expect(document.querySelectorAll('div.note').length).toEqual(1); 
+    
+    // checks if the first content of the html is the note user has entered
+    expect(document.querySelectorAll('div.note')[0].textContent).toEqual('My new note'); 
   });
 
   it('verifies displayNotes called x2 still retains the right number of notes on the page', () => {
     //Arrange
     const model = new NotesModel();
     const view = new NotesView(model);
-
-    //Act
     model.addNote('Test1');
     model.addNote('Test2');
 
+    //Act
     view.displayNotes();
     view.displayNotes();
 
@@ -49,14 +58,22 @@ describe('NotesView', () => {
     expect(document.querySelectorAll('div.note').length).toEqual(2)
   });
 
+  // need to be able to walkthrough this logic!
   it('calls loadNotes on client class, gets response, and sets list of notes on model', () => {
     const model = new NotesModel(); 
-    const view = new NotesView(model);
-    const client = new NotesClient();
+    const clientMock = {
+      loadNotes: (callback) => {
+        callback(['this is a test note']);
+    }
+  };
 
+    // fetch.mockResponseOnce(JSON.stringify ({
+    //   note: "some value"
+    // }));
+
+    const view = new NotesView(model, clientMock);
     view.displayNotesFromApi();
 
-    // call loadNotes(callback) on Client class
-    // take response data and set the list of notes on Model and call displayNotes();
+    expect(document.querySelector('div.note').textContent).toBe('this is a test note');
   });
 });
