@@ -17,7 +17,6 @@ class NotesView {
     document.querySelector('#add-note-input').value = '';
   }
 
-
   displayNotes() {
     // removes previous notes
     const oldNotes = document.querySelectorAll('.note');
@@ -39,7 +38,9 @@ class NotesView {
       this.mainContainerEl.append(noteElement);
     });
 
-    
+    displayNotesFromApi() {
+      
+    };
 
   }
 }
