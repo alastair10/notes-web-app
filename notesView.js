@@ -1,8 +1,9 @@
 class NotesView {
   
-  constructor(model) {
+  constructor(model, client) {
     this.model = model; // injecting the model class
     this.mainContainerEl = document.querySelector('#main-container'); // defining main container element
+    this.client = client; // injecting client class
 
     document.querySelector('#add-note-button').addEventListener('click', () => {
       const newNote = document.querySelector('#add-note-input').value;
