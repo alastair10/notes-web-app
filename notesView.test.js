@@ -67,10 +67,6 @@ describe('NotesView', () => {
     }
   };
 
-    // fetch.mockResponseOnce(JSON.stringify ({
-    //   note: "some value"
-    // }));
-
     const view = new NotesView(model, clientMock);
     view.displayNotesFromApi();
 

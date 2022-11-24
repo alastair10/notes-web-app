@@ -13,13 +13,13 @@ class NotesView {
     document.querySelector('#add-note-button').addEventListener('click', () => {
       const newNote = document.querySelector('#add-note-input').value;
       this.addNewNote(newNote);
-      document.querySelector('#add-note-input').value = '';
     });
   }
 
   addNewNote(newNote) {
     this.model.addNote(newNote);
     this.displayNotes();
+    document.querySelector('#add-note-input').value = '';
   };
 
   displayNotes() {

@@ -17,7 +17,7 @@ describe('Client class', () => {
     // possible (it should have the same fields).
     fetch.mockResponseOnce(JSON.stringify({
       name: "Some value",
-      id: 123
+      id: 99
     }));
 
     // 3. We call the method, giving a callback function.
@@ -26,10 +26,28 @@ describe('Client class', () => {
     // what it should.
     client.loadNotes((returnedDataFromApi) => {
       expect(returnedDataFromApi.name).toBe("Some value");
-      expect(returnedDataFromApi.id).toBe(123);
+      expect(returnedDataFromApi.id).toBe(99);
 
       // 4. Tell Jest our test can now end.
       done();
     });
   });
+  
+  // TODO
+  it('sends a POST request to the notes backend to create a new note', () => {
+    const client = new NotesClient();
+    fetch.mockResponseOnce({
+      method: 'POST',
+      headers: {
+        'Content-type': 'application/json',
+      },
+      body: JSON.stringify(['note for POST testing']),
+    });
+    client.createNote((response) => {
+      expect(response.status).toBe(200);
+      done();
+    });
+  });
+
+
 });
