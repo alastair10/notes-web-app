@@ -14,7 +14,9 @@ class NotesView {
     
     this.addNoteButtonEl.addEventListener('click', () => {
       const newNote = document.querySelector('#add-note-input').value;
-      this.client.createNote(newNote);
+      this.client.createNote(newNote, () => {
+        this.displayError();
+      });
       this.addNewNote(newNote);
     });
   }
@@ -57,6 +59,13 @@ class NotesView {
         this.displayNotes();
     });
   };
+
+  displayError() {
+    const error = document.querySelector('#error-message');
+    error.textContent = "Oops! Something went wrong...";
+  }
+
+
 };
 
 module.exports = NotesView;

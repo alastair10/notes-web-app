@@ -75,4 +75,5 @@ describe('NotesView', () => {
 
     expect(document.querySelector('div.note').textContent).toBe('this is a test note');
   });
+
 });
