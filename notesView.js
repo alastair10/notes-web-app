@@ -10,8 +10,11 @@ class NotesView {
     // injecting client class
     this.client = client; 
 
-    document.querySelector('#add-note-button').addEventListener('click', () => {
+    this.addNoteButtonEl = document.querySelector('#add-note-button')
+    
+    this.addNoteButtonEl.addEventListener('click', () => {
       const newNote = document.querySelector('#add-note-input').value;
+      this.client.createNote(newNote);
       this.addNewNote(newNote);
     });
   }

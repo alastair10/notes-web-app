@@ -32,7 +32,7 @@ describe('Client class', () => {
       done();
     });
   });
-  
+
   // TODO
   it('sends a POST request to the notes backend to create a new note', () => {
     const client = new NotesClient();
@@ -50,4 +50,6 @@ describe('Client class', () => {
   });
 
 
+
+  
 });

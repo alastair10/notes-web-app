@@ -9,8 +9,8 @@ class NotesClient {
   }
   // TO DO
   // sends a POST request to the notes backend to create a new note
-  createNote() {
-    const noteData = { content: note };
+  createNote(note) {
+    const noteData = { content: note};
     console.log(noteData);
   
     fetch("http://localhost:3000/notes", {
