@@ -1,5 +1,5 @@
 class NotesView {
-  
+
   constructor(model, client) {
     // injecting the model class
     this.model = model; 

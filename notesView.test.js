@@ -20,6 +20,7 @@ describe('NotesView', () => {
     document.body.innerHTML = fs.readFileSync('./index.html');
   });
 
+  // WIP failing after adding createNote in notesView file
   it('adds a new note', () => {  
     //Arrange
     const model = new NotesModel();
@@ -34,6 +35,8 @@ describe('NotesView', () => {
     // Click the button
     const button = document.querySelector('#add-note-button');
     button.click(); // simulate a button click
+    model.addNote('Test1');
+    view.displayNotes();
 
     //Assert
     // checks if there is an element w/HTML ID 'div.note' on the doc.
@@ -58,7 +61,7 @@ describe('NotesView', () => {
     expect(document.querySelectorAll('div.note').length).toEqual(2)
   });
 
-  // need to be able to walkthrough this logic!
+  // need to be able to walkthrough this
   it('calls loadNotes on client class, gets response, and sets list of notes on model', () => {
     const model = new NotesModel(); 
     const clientMock = {
